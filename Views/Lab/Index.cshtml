@@ -1,0 +1,46 @@
+﻿@model Week04Lab.Models.CityProvinceViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            CityName
+        </th>
+        <th>
+            Population
+        </th>
+        <th>
+            Province
+        </th>
+    </tr>
+
+@foreach (var item in Model.CityModel) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Population)
+        </td>
+        <td>
+            <select>
+                @foreach (var item2 in Model.ProvModel)
+                {
+                    <option value="@item2.ProvinceId">@item2.ProvinceName</option>
+                }
+            </select>
+
+        </td>
+    </tr>
+}
+
+</table>
