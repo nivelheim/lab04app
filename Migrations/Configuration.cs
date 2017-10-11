@@ -11,7 +11,7 @@ namespace Week04Lab.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"Migrations";
         }
 
@@ -30,15 +30,15 @@ namespace Week04Lab.Migrations
             //    );
             //
 
-            List<City> cities = new List<City>();
-            cities.Add(new City { CityId = 11, CityName = "Burnaby", Population = 100 });
-            cities.Add(new City { CityId = 12, CityName = "Vancouver", Population = 200 });
-            cities.Add(new City { CityId = 13, CityName = "Surrey", Population = 300 });
-
             List<Province> provs = new List<Province>();
             provs.Add(new Province { ProvinceId = "BC", ProvinceName = "British Columbia" });
             provs.Add(new Province { ProvinceId = "AB", ProvinceName = "Alberta" });
             provs.Add(new Province { ProvinceId = "QC", ProvinceName = "Quebec" });
+
+            List<City> cities = new List<City>();
+            cities.Add(new City { CityId = 11, CityName = "Burnaby", Population = 100, ProvinceId = context.Provinces.FirstOrDefault(t => t.ProvinceName == "British Columbia").ProvinceId });
+            cities.Add(new City { CityId = 12, CityName = "Vancouver", Population = 200, ProvinceId = context.Provinces.FirstOrDefault(t => t.ProvinceName == "Alberta").ProvinceId });
+            cities.Add(new City { CityId = 13, CityName = "Surrey", Population = 300, ProvinceId = context.Provinces.FirstOrDefault(t => t.ProvinceName == "Quebec").ProvinceId });
 
             context.Cities.AddOrUpdate(t => t.CityName, cities.ToArray());
             context.Provinces.AddOrUpdate(u => u.ProvinceId, provs.ToArray());
